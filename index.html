@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La fórmula del modelo Colombia-Ecuador</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f8fa;--surface:#fff;--ink:#14213d;--mute:#5b6577;--line:#d9dee7;--red:#c8362f;--green:#1f8a5b;--blue:#1d4ed8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--surface:#18202f;--ink:#eef1f7;--mute:#9aa5ba;--line:#2c3749;--red:#ff7b72;--green:#4ade9b;--blue:#7ea2ff}}
+:root[data-theme="dark"]{--bg:#0f1420;--surface:#18202f;--ink:#eef1f7;--mute:#9aa5ba;--line:#2c3749;--red:#ff7b72;--green:#4ade9b;--blue:#7ea2ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;padding:24px 18px 48px}
+h1{font-size:1.6rem;line-height:1.2;margin:0 0 6px;font-weight:600}
+.sub{color:var(--mute);margin:0 0 18px;max-width:64ch}
+.small{font-size:.85rem;color:var(--mute)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.formula{font:500 1.05rem/1.6 "IBM Plex Mono",monospace;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;white-space:nowrap}
+.formula .b{color:var(--green)}.formula .c{color:var(--red)}.formula .i{color:var(--blue)}
+.lab{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px;margin-top:18px}
+@media(max-width:760px){.lab{grid-template-columns:1fr}}
+.grp{border-left:4px solid var(--line);padding:4px 0 4px 14px;margin-bottom:16px}
+.grp.g{border-color:var(--green)}.grp.r{border-color:var(--red)}.grp.s{border-color:var(--blue)}
+.grp h3{margin:0 0 2px;font-size:1rem}
+.row{display:grid;grid-template-columns:170px 1fr 40px;gap:10px;align-items:center;font-size:.9rem}
+.row output{font:500 .9rem "IBM Plex Mono",monospace;text-align:right}
+input[type=range]{width:100%}
+@media(max-width:480px){.row{grid-template-columns:115px 1fr 36px}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;align-self:start}
+.big{font:500 2.2rem/1.1 "IBM Plex Mono",monospace}
+.bar3{display:grid;gap:8px;margin:12px 0}
+.bar3 div{display:grid;grid-template-columns:100px 1fr 44px;gap:8px;align-items:center;font-size:.85rem}
+.bar3 span.t{height:14px;border-radius:7px;background:var(--line);overflow:hidden;display:block}
+.bar3 span.t i{display:block;height:100%;transition:width .3s}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.btn{background:none;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 14px;font:500 .9rem "IBM Plex Sans",sans-serif;cursor:pointer}
+.note{margin-top:16px;font-size:.85rem;color:var(--mute);max-width:72ch}
+</style>
+</head>
+<body>
+<main>
+<h1>La fórmula del modelo Colombia-Ecuador</h1>
+<p class="sub">Basada en Arroyo y Bolaños (2010). Mueve los valores y mira cómo cambia la utilidad de un Estado.</p>
+
+<div class="formula">U = Σ ( <span class="b">B + α·E</span> − <span class="c">(C<sub>I</sub> + β·η)</span> ) · <span class="i">(E<sub>X</sub> + R<sub>X</sub>)</span></div>
+<p class="small">Ecuaciones 7 y 8 del artículo. La suma Σ recorre los periodos; aquí se calcula uno solo para verlo claro.</p>
+
+<div class="lab">
+<div>
+<div class="presets">
+<button class="btn" data-p="eq">Equilibrio del artículo (α=1, β=1)</button>
+<button class="btn" data-p="dom">Estado indiferente (α=0, β=0)</button>
+</div>
+<div class="grp g"><h3>Lo que gano con mi política</h3>
+<div class="row"><label for="B">B: política base</label><input id="B" type="range" min="0" max="10" value="5"><output></output></div>
+<div class="row"><label for="E">E: política ejecutada</label><input id="E" type="range" min="0" max="10" value="6"><output></output></div>
+<div class="row"><label for="a">α: importancia de E</label><input id="a" type="range" min="0" max="1" step="0.1" value="1"><output></output></div></div>
+<div class="grp r"><h3>Lo que me cuesta</h3>
+<div class="row"><label for="CI">C<sub>I</sub>: costo político</label><input id="CI" type="range" min="0" max="10" value="3"><output></output></div>
+<div class="row"><label for="n">η: costo de cambiar</label><input id="n" type="range" min="0" max="10" value="6"><output></output></div>
+<div class="row"><label for="b">β: peso de ese costo</label><input id="b" type="range" min="0" max="1" step="0.1" value="1"><output></output></div></div>
+<div class="grp s"><h3>Qué tan estable queda la relación</h3>
+<div class="row"><label for="EX">E<sub>X</sub>: estabilidad del otro</label><input id="EX" type="range" min="0" max="10" value="5"><output></output></div>
+<div class="row"><label for="RX">R<sub>X</sub>: estabilidad binacional</label><input id="RX" type="range" min="0" max="10" value="4"><output></output></div></div>
+</div>
+<div class="card">
+<div class="small">Utilidad del Estado (un periodo)</div>
+<div class="big" id="U"></div>
+<div class="bar3">
+<div><span>Beneficio</span><span class="t"><i id="bb" style="background:var(--green)"></i></span><b id="vb"></b></div>
+<div><span>Costo</span><span class="t"><i id="bc" style="background:var(--red)"></i></span><b id="vc"></b></div>
+<div><span>Estabilidad Iₓ</span><span class="t"><i id="bi" style="background:var(--blue)"></i></span><b id="vi"></b></div>
+</div>
+<p id="read" style="margin:8px 0 0"></p>
+</div>
+</div>
+<p class="note">Los valores de B, E, C<sub>I</sub>, η, E<sub>X</sub> y R<sub>X</sub> (0 a 10) son de ejemplo para practicar; el artículo no les asigna números. Solo α y β están acotados entre 0 y 1.</p>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+var ids=["B","E","a","CI","n","b","EX","RX"];
+function v(i){return parseFloat($(i).value)}
+function fmt(x){return (Math.round(x*100)/100).toString()}
+function calc(){
+ ids.forEach(function(i){$(i).parentNode.querySelector("output").textContent=fmt(v(i))});
+ var ben=v("B")+v("a")*v("E"),cost=v("CI")+v("b")*v("n"),st=v("EX")+v("RX");
+ var U=(ben-cost)*st;
+ $("U").textContent=fmt(U);
+ $("vb").textContent=fmt(ben);$("vc").textContent=fmt(cost);$("vi").textContent=fmt(st);
+ $("bb").style.width=Math.min(100,ben/20*100)+"%";
+ $("bc").style.width=Math.min(100,cost/20*100)+"%";
+ $("bi").style.width=Math.min(100,st/20*100)+"%";
+ var r;
+ if(v("a")===0&&v("b")===0)r="Con α=0 y β=0 el Estado ignora su política frente al otro y no ve costo en cambiar la relación: se queda con su política base B.";
+ else if(U<0)r="Los costos superan al beneficio: sostener esta política le resta utilidad. Eso empuja a buscar otra salida.";
+ else r="El beneficio supera al costo. Cuanto más estable la relación (Iₓ), más pesa ese resultado.";
+ $("read").textContent=r;
+}
+ids.forEach(function(i){$(i).oninput=calc});
+document.querySelectorAll("[data-p]").forEach(function(b){b.onclick=function(){
+ var p=b.getAttribute("data-p");
+ if(p==="eq"){$("a").value=1;$("b").value=1}else{$("a").value=0;$("b").value=0}
+ calc();
+}});
+calc();
+</script>
+</body>
+</html>
