@@ -52,6 +52,8 @@ input[type=range]{width:100%}
 <div>
 <div class="presets">
 <button class="btn" data-p="eq">Equilibrio del artículo (α=1, β=1)</button>
+<button class="btn" data-p="max">Máxima utilidad</button>
+<button class="btn" data-p="reset">Reiniciar</button>
 <button class="btn" data-p="dom">Estado indiferente (α=0, β=0)</button>
 </div>
 <div class="grp g"><h3>Lo que gano con mi política</h3>
@@ -60,7 +62,7 @@ input[type=range]{width:100%}
 <div class="row"><label for="a">α: importancia de E</label><input id="a" type="range" min="0" max="1" step="0.1" value="1"><output></output></div></div>
 <div class="grp r"><h3>Lo que me cuesta</h3>
 <div class="row"><label for="CI">C<sub>I</sub>: costo político</label><input id="CI" type="range" min="0" max="10" value="3"><output></output></div>
-<div class="row"><label for="n">η: costo de cambiar</label><input id="n" type="range" min="0" max="10" value="6"><output></output></div>
+<div class="row"><label for="n">η: costo de cambiar</label><input id="n" type="range" min="0" max="10" value="4"><output></output></div>
 <div class="row"><label for="b">β: peso de ese costo</label><input id="b" type="range" min="0" max="1" step="0.1" value="1"><output></output></div></div>
 <div class="grp s"><h3>Qué tan estable queda la relación</h3>
 <div class="row"><label for="EX">E<sub>X</sub>: estabilidad del otro</label><input id="EX" type="range" min="0" max="10" value="5"><output></output></div>
@@ -77,11 +79,17 @@ input[type=range]{width:100%}
 <p id="read" style="margin:8px 0 0"></p>
 </div>
 </div>
-<p class="note">Los valores de B, E, C<sub>I</sub>, η, E<sub>X</sub> y R<sub>X</sub> (0 a 10) son de ejemplo para practicar; el artículo no les asigna números. Solo α y β están acotados entre 0 y 1.</p>
+<p class="note">Cada botón fija todos los valores, así que siempre da el mismo resultado; después puedes ajustar los sliders a mano. Los valores de B, E, C<sub>I</sub>, η, E<sub>X</sub> y R<sub>X</sub> (0 a 10) son de ejemplo para practicar; el artículo no les asigna números. Solo α y β están acotados entre 0 y 1.</p>
 </main>
 <script>
 var $=function(i){return document.getElementById(i)};
 var ids=["B","E","a","CI","n","b","EX","RX"];
+var PRE={
+eq:{B:5,E:6,a:1,CI:3,n:4,b:1,EX:5,RX:4},
+dom:{B:5,E:6,a:0,CI:3,n:4,b:0,EX:5,RX:4},
+max:{B:10,E:10,a:1,CI:0,n:0,b:0,EX:10,RX:10},
+reset:{B:5,E:6,a:1,CI:3,n:4,b:1,EX:5,RX:4}
+};
 function v(i){return parseFloat($(i).value)}
 function fmt(x){return (Math.round(x*100)/100).toString()}
 function calc(){
@@ -102,7 +110,7 @@ function calc(){
 ids.forEach(function(i){$(i).oninput=calc});
 document.querySelectorAll("[data-p]").forEach(function(b){b.onclick=function(){
  var p=b.getAttribute("data-p");
- if(p==="eq"){$("a").value=1;$("b").value=1}else{$("a").value=0;$("b").value=0}
+ var P=PRE[p];ids.forEach(function(i){$(i).value=P[i]});
  calc();
 }});
 calc();
